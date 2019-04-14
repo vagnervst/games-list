@@ -57,4 +57,5 @@ const App = ({ match, history }) => {
   )
 }
 
-export default withRouter(App);
+export default withRouter(App)
+
