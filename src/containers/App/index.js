@@ -5,15 +5,24 @@ import Sidebar from '../../components/Sidebar'
 import AddGame from '../AddGame'
 import Game from '../Game'
 
-import mockData  from '../../data.json'
+import reducer from '../../reducer'
 
 import style from './style.css';
 
 const App = () => {
   const [ isModalVisible, setIsModalVisible ] = useState(false)
+  const [ games, dispatch ] = reducer()
 
   const onConfirm = (data) => {
-    console.log(data)
+    dispatch({
+      type: 'ADD_GAME',
+      payload: {
+        id: games.length,
+        ...data,
+      },
+    })
+
+    setIsModalVisible(false)
   }
 
   return (
@@ -23,14 +32,14 @@ const App = () => {
         onConfirm={onConfirm}
         visible={isModalVisible}
       />
-      <Sidebar items={mockData}>
+      <Sidebar items={games}>
         <Button onClick={() => setIsModalVisible(!isModalVisible)}>Add Game</Button>
       </Sidebar>
       <Game
-        background={mockData[0].background}
-        description={mockData[0].description}
-        title={mockData[0].title}
-        thumbnail={mockData[0].thumbnail}
+        background={games[0].background}
+        description={games[0].description}
+        title={games[0].title}
+        thumbnail={games[0].thumbnail}
       />
     </div>
   )
