@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router'
 
 import Button from '../../components/Button'
 import Sidebar from '../../components/Sidebar'
@@ -9,20 +10,26 @@ import reducer from '../../reducer'
 
 import style from './style.css';
 
-const App = () => {
+const App = ({ match, history }) => {
   const [ isModalVisible, setIsModalVisible ] = useState(false)
   const [ games, dispatch ] = reducer()
+  const chosenGame = games.find(({ id }) => id === Number(match.params.id))
 
   const onConfirm = (data) => {
     dispatch({
       type: 'ADD_GAME',
       payload: {
-        id: games.length,
+        id: games.length + 1,
         ...data,
       },
     })
 
     setIsModalVisible(false)
+  }
+
+  const onGameChange = game => {
+    console.log('selected game', game)
+    history.push(`/${game.id}`)
   }
 
   return (
@@ -32,17 +39,22 @@ const App = () => {
         onConfirm={onConfirm}
         visible={isModalVisible}
       />
-      <Sidebar items={games}>
+      <Sidebar
+        items={games}
+        onItemClick={onGameChange}
+      >
         <Button onClick={() => setIsModalVisible(!isModalVisible)}>Add Game</Button>
       </Sidebar>
-      <Game
-        background={games[0].background}
-        description={games[0].description}
-        title={games[0].title}
-        thumbnail={games[0].thumbnail}
-      />
+      { chosenGame &&
+        <Game
+          background={chosenGame.background}
+          description={chosenGame.description}
+          title={chosenGame.title}
+          thumbnail={chosenGame.thumbnail}
+        />
+      }
     </div>
   )
 }
 
-export default App;
+export default withRouter(App);

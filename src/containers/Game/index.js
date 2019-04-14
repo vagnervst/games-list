@@ -11,10 +11,8 @@ const Game = ({
   <div
     className={style.game}
     style={{
-      background: `linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1) ), url(${background})`,
-      backgroundAttachment: 'fixed',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1) ), url(${background})`,
+      backgroundSize: 'cover'
     }}
   >
     <img className={style.thumbnail} alt={title} src={thumbnail} />
