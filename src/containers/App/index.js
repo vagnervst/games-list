@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+import Sidebar from '../../components/Sidebar'
 
 import style from './style.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className={style.app}>
-        Games List
-      </div>
-    );
-  }
-}
+import mockData  from '../../data.json'
+
+const App = () => (
+  <div className={style.app}>
+    <Sidebar items={mockData} />
+  </div>
+)
 
 export default App;
