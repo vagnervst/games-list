@@ -1,14 +1,16 @@
 import React from 'react';
 
+import Button from '../../components/Button'
 import Sidebar from '../../components/Sidebar'
+import mockData  from '../../data.json'
 
 import style from './style.css';
 
-import mockData  from '../../data.json'
-
 const App = () => (
   <div className={style.app}>
-    <Sidebar items={mockData} />
+    <Sidebar items={mockData}>
+      <Button>Add Game</Button>
+    </Sidebar>
   </div>
 )
 
